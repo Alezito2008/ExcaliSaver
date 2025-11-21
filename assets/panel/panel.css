@@ -1,0 +1,125 @@
+:root {
+    --excalidraw-shadow: 0px 0px .9310142993927002px 0px rgba(0, 0, 0, .17), 0px 0px 3.1270833015441895px 0px rgba(0, 0, 0, .08), 0px 7px 14px 0px rgba(0, 0, 0, .05);
+}
+
+#excalisaver-panel {
+    font-family: Excalifont, Xiaolai;
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    box-shadow: var(--excalidraw-shadow);
+    border-radius: 15px;
+    padding: 2rem;
+    min-width: 500px;
+    width: 60vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#excalisaver-panel>.excalidraw {
+    display: flex;
+    flex-direction: column;
+}
+
+#excalisaver-panel button {
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    width: unset;
+}
+
+#excalisaver-panel h1 {
+    font-size: 1.5rem;
+}
+
+#excalisaver-panel h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin-block: 0.5rem;
+}
+
+.excalidraw-button.primary {
+    --button-color: var(--color-primary-light);
+    background-color: var(--color-primary) !important;
+}
+
+#x-button {
+    cursor: pointer;
+    right: 0;
+    position: absolute;
+    opacity: 50%;
+}
+
+.excalisaver-title {
+    display: flex;
+    place-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.excalisaver-title h1 {
+    margin: 0;
+}
+
+.status-indicator::before {
+    content: '';
+    display: block;
+    width: 1rem;
+    aspect-ratio: 1;
+    background-color: red;
+    border-radius: 50%;
+    transform: translateY(25%);
+}
+
+.saves-container {
+    border-radius: 15px;
+    border: 1px solid var(--color-gray-30);
+    display: flex;
+    flex-direction: column;
+    margin-block: 1rem;
+    overflow-y: auto;
+}
+
+.saves-container .item {
+    list-style: none;
+    display: flex;
+    border-bottom: 1px solid var(--color-gray-30);
+    padding-block: 1rem;
+}
+
+.saves-container .item:last-child {
+    border-bottom: unset;
+}
+
+.saves-container .item-info,
+.saves-container .item-actions {
+    display: flex;
+    place-items: center;
+}
+
+.saves-container .item-info {
+    flex: 1;
+    padding-left: 1rem;
+    flex-direction: column;
+    place-items: flex-start;
+    font-weight: 500;
+    gap: 4px;
+}
+
+.item-info .item-title {
+    font-size: 1.2rem;
+}
+
+.item-info .item-date {
+    margin-top: 5px;
+    color: var(--color-gray-50);
+    font-size: 0.8rem;
+}
+
+.item-actions .menu-button {
+    all: unset;
+    font-weight: bolder;
+}

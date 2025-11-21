@@ -1,0 +1,48 @@
+{
+    "name": "Excallisaver",
+    "description": "Save your Excalidraw projects on the cloud!",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "icons": {
+        "19": "images/icon19.png",
+        "32": "images/icon32.png",
+        "48": "images/icon48.png",
+        "128": "images/icon128.png",
+        "256": "images/icon256.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://excalidraw.com/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "assets/panel/panel.css",
+                "assets/global.css"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "inject.js",
+                "assets/*/*.html",
+                "assets/*/*.css",
+                "assets/*/*.js",
+                "assets/*.html",
+                "assets/*.css",
+                "images/*.svg"
+            ],
+            "matches": [
+                "https://excalidraw.com/*"
+            ]
+        }
+    ]
+}
