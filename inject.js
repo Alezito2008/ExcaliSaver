@@ -16,7 +16,7 @@
     const xButton = document.querySelector('#x-button');
 
     function setPanelOpened(opened) {
-        panel.style.display = opened ? 'block' : 'none';
+        panel.style.display = opened ? 'flex' : 'none';
         overlay.style.display = opened ? 'block' : 'none';
     }
 
@@ -31,4 +31,5 @@
     })
 
     overlay.addEventListener('click', () => setPanelOpened(false));
+    document.addEventListener('keydown', (e) => e.key == 'Escape' && setPanelOpened(false));
 })();
