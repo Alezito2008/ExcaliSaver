@@ -1,14 +1,16 @@
 import 'dotenv/config'
 import express from 'express'
 import db from './db.js';
+import cors from 'cors'
 
 const app = express();
-app.use(express.json());
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Corriendo');
+app.get('/status', (req, res) => {
+    res.json({ online: true });
 })
 
 app.post('/save', (req, res) => {
@@ -20,8 +22,7 @@ app.post('/save', (req, res) => {
 
         res.json({ ok: true });
     } catch (e) {
-        console.log(e);
-        res.json({ ok: false, error: e });
+        res.json({ ok: false, error: e.message });
     }
 })
 
@@ -35,8 +36,11 @@ app.get('/saves/:id', (req, res) => {
     const { id } = req.params;
     const query = db.prepare('SELECT * FROM saves WHERE id = ?');
 
-    const result = query.get(id);
-    res.json(result || {});
+    const save = query.get(id);
+
+    if (!save) return res.status(404).json({ ok: false, error: "Save not found" });
+
+    res.json(save);
 })
 
 app.delete('/saves/:id', (req, res) => {
