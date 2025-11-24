@@ -44,6 +44,7 @@
         const currentSave = localStorage.getItem('excalisaver-current');
         if (currentSave) {
             const save = JSON.parse(localStorage.getItem(currentSave));
+            document.querySelector('#current-save').dataset.saveId = currentSave;
             document.querySelector('#current-title').value = save.title;
             document.querySelector('#current-date').textContent = `Created: ${formatDate(save.created)} - Updated: ${formatDate(save.modified)}`;
         }
@@ -57,6 +58,7 @@
 
             const li = document.createElement('li');
             li.className = 'item';
+            li.dataset.saveId = id;
             li.innerHTML = `<div class="item-info">
                 <div class="item-title">
                     ${save.title}
@@ -93,6 +95,16 @@
         window.location.reload();
     }
 
+    function deleteSave(id) {
+        const currentSave = localStorage.getItem('excalisaver-current');
+        const index = JSON.parse(localStorage.getItem('excalisaver-index'));
+        const newIndex = index.filter(i => i != id);
+        currentSave == id && localStorage.removeItem('excalisaver-current');
+        localStorage.setItem('excalisaver-index', JSON.stringify(newIndex));
+        localStorage.removeItem(id);
+        window.location.reload();
+    }
+
     loadSaves();
 
     const currentSaveItem = document.querySelector('#current-save');
@@ -102,4 +114,31 @@
 
     currentSaveButton.addEventListener('click', () => saveCurrentScene(currentSaveTitle.value));
     createSaveButton.addEventListener('click', createSave);
+
+    const menu = document.querySelector('#item-options');
+    const deleteButton = menu.querySelector('#delete-button');
+    let selectedSave;
+
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.menu-button');
+
+        if (btn) {
+            menu.style.display = 'block';
+
+            const item = e.target.closest('.item');
+            const saveId = item.dataset.saveId;
+            selectedSave = saveId;
+
+            const position = btn.getBoundingClientRect();
+            menu.style.left = `${position.right}px`;
+            menu.style.top = `${position.top}px`;
+            return;
+        }
+
+        menu.style.display = 'none';
+    });
+
+    deleteButton.addEventListener('click', () => {
+        deleteSave(selectedSave);
+    });
 })();

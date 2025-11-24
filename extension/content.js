@@ -49,6 +49,10 @@ loadHtml('assets/panel/panel.html', {
     properties: { id: 'excalisaver-panel' }
 })
 
+loadHtml('assets/panel/item-options.html', {
+    properties: { className: '' }
+})
+
 observeForElement('.layer-ui__wrapper__footer-right.zen-mode-transition', (element) => {
     loadHtml('assets/button.html', {
         properties: { 'style.position': 'relative' },

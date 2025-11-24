@@ -1,5 +1,34 @@
 :root {
+    --excalidraw-border-radius: 0.75rem;
     --excalidraw-shadow: 0px 0px .9310142993927002px 0px rgba(0, 0, 0, .17), 0px 0px 3.1270833015441895px 0px rgba(0, 0, 0, .08), 0px 7px 14px 0px rgba(0, 0, 0, .05);
+}
+
+#item-options {
+    padding: 1rem;
+    box-shadow: var(--excalidraw-shadow);
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    display: none;
+    border-radius: var(--excalidraw-border-radius);
+}
+
+#delete-button {
+    color: #fff;
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: .5rem;
+    cursor: pointer;
+    background-color: #db6965;
+    border-color: #db6965;
 }
 
 #excalisaver-panel {
@@ -26,7 +55,8 @@
     flex-direction: column;
 }
 
-#excalisaver-panel button {
+#excalisaver-panel button,
+#delete-button {
     padding: 0.5rem 1rem;
     font-weight: 700;
     width: unset;
