@@ -1,0 +1,17 @@
+{
+  "name": "excalisaver",
+  "version": "1.0.0",
+  "description": "Save your excalidraw projects on the cloud!",
+  "license": "ISC",
+  "author": "Alezito2008",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js --watch"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}

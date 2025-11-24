@@ -1,0 +1,26 @@
+@base = http://localhost:3000
+
+### CREATE SAVE
+
+POST {{base}}/save
+Content-Type: application/json
+
+{
+    "id": "save-2",
+    "title": "Primera save",
+    "created": 123,
+    "modified": 456,
+    "data": [{"skibidi": "toilet"}]
+}
+
+### GET ALL SAVES
+
+GET {{base}}/saves
+
+### GET SAVE BY ID
+
+GET {{base}}/saves/save-1
+
+### DELETE SAVE BY ID
+
+DELETE {{base}}/saves/save-2
