@@ -130,6 +130,16 @@ const EXCALISAVER_URL = 'http://localhost:3000';
 
     loadSaves();
 
+    const statusIndicator = document.querySelector('#status-indicator');
+    const status = await fetch(`${EXCALISAVER_URL}/status`).then(data => data.json());
+    if (status.online) {
+        statusIndicator.textContent = 'Online';
+        statusIndicator.style.setProperty('--status-color', 'lime');
+    }
+
+    const savesView = document.querySelector('#saves-view');
+    !(SAVES.length > 0) && (savesView.style.display = 'none');
+
     const currentSaveItem = document.querySelector('#current-save');
     const currentSaveTitle = currentSaveItem.querySelector('input');
     const currentSaveButton = currentSaveItem.querySelector('#save-button');

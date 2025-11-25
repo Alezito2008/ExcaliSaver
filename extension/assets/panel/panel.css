@@ -95,7 +95,8 @@
     margin: 0;
 }
 
-.status-indicator {
+#status-indicator {
+    --status-color: red;
     position: absolute;
     bottom: 0.75rem;
     right: 1rem;
@@ -105,11 +106,11 @@
     gap: 4px;
 }
 
-.status-indicator::before {
+#status-indicator::before {
     content: '';
     width: 1rem;
     height: 1rem;
-    background-color: red;
+    background-color: var(--status-color);
     border-radius: 50%;
 }
 
