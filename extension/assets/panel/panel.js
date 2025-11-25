@@ -118,13 +118,13 @@ const EXCALISAVER_URL = 'http://localhost:3000';
         window.location.reload();
     }
 
-    function deleteSave(id) {
+    async function deleteSave(id) {
         const currentSave = localStorage.getItem('excalisaver-current');
-        const index = JSON.parse(localStorage.getItem('excalisaver-index'));
-        const newIndex = index.filter(i => i != id);
+        const deleted = await fetch(`${EXCALISAVER_URL}/saves/${id}`, {
+            method: 'DELETE'
+        }).then(data => data.json());
+        if (!deleted.ok) return alert('Error al eliminar save: ' + id);
         currentSave == id && localStorage.removeItem('excalisaver-current');
-        localStorage.setItem('excalisaver-index', JSON.stringify(newIndex));
-        localStorage.removeItem(id);
         window.location.reload();
     }
 
