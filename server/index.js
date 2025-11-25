@@ -13,11 +13,18 @@ app.get('/status', (req, res) => {
     res.json({ online: true });
 })
 
-app.post('/save', (req, res) => {
+app.post('/saves', (req, res) => {
     try {
         const { id, title, created, modified, data } = req.body;
 
-        const query = db.prepare('INSERT INTO saves (id, title, created, modified, data) VALUES (?, ?, ?, ?, ?)');
+        const query = db.prepare(`
+            INSERT INTO saves (id, title, created, modified, data)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO UPDATE SET
+                title = EXCLUDED.title,
+                modified = EXCLUDED.modified,
+                data = EXCLUDED.data
+        `);
         query.run(id, title, created, modified, JSON.stringify(data));
 
         res.json({ ok: true });
@@ -27,7 +34,7 @@ app.post('/save', (req, res) => {
 })
 
 app.get('/saves', (req, res) => {
-    const query = db.prepare('SELECT * FROM saves;');
+    const query = db.prepare('SELECT id, title, created, modified FROM saves;');
 
     res.json(query.all());
 });

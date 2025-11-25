@@ -1,64 +1,87 @@
-(() => {
+const EXCALISAVER_URL = 'http://localhost:3000';
+
+(async () => {
+
+    const SAVES = await fetch(`${EXCALISAVER_URL}/saves`).then(data => data.json());
+
+    async function postSave(save) {
+        const upload = await fetch(`${EXCALISAVER_URL}/saves`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(save)
+        });
+
+        if (upload.status != 200) alert('Error uploading save: ' + upload.message);
+    }
+
+    async function getSave(id) {
+        const save = await fetch(`${EXCALISAVER_URL}/saves/${id}`).then(data => data.json());
+        if (save.status == 404) {
+            alert(`Save not found: ${id}`)
+            return null;
+        };
+        return save
+    }
 
     function formatDate(date) {
         return (new Date(date)).toLocaleDateString();
     }
 
-    function saveCurrentScene(title) {
+    async function saveCurrentScene(title) {
         const scene = JSON.parse(localStorage.getItem('excalidraw'));
         const now = Date.now();
-        const currentId = localStorage.getItem('excalisaver-current');
-        const isNew = !currentId;
 
-        const id = isNew ? 'save-' + String(now) : currentId;
+        const currentId = localStorage.getItem('excalisaver-current');
+        let existingSave = null;
+
+        if (currentId) existingSave = await getSave(currentId);
+
+        const isNew = !existingSave;
 
         if (isNew) {
+            const id = 'save-' + now;
+
             const saveObj = {
+                id,
                 title: title || "Untitled",
                 created: now,
                 modified: now,
                 data: scene
             };
 
-            const index = JSON.parse(localStorage.getItem('excalisaver-index') || '[]');
-            index.push(id);
             localStorage.setItem('excalisaver-current', id);
-            localStorage.setItem('excalisaver-index', JSON.stringify(index));
-            localStorage.setItem(id, JSON.stringify(saveObj));
+            postSave(saveObj);
         } else {
-            let old = JSON.parse(localStorage.getItem(id));
-
-            old = {
-                ...old,
+            existingSave = {
+                ...existingSave,
                 data: scene,
                 modified: now,
                 title: title
             }
 
-            localStorage.setItem(id, JSON.stringify(old));
+            postSave(existingSave);
         }
-
     }
 
-    function loadSaves() {
+    async function loadSaves() {
         const currentSave = localStorage.getItem('excalisaver-current');
         if (currentSave) {
-            const save = JSON.parse(localStorage.getItem(currentSave));
+            const save = await getSave(currentSave);
             document.querySelector('#current-save').dataset.saveId = currentSave;
             document.querySelector('#current-title').value = save.title;
             document.querySelector('#current-date').textContent = `Created: ${formatDate(save.created)} - Updated: ${formatDate(save.modified)}`;
         }
 
         const container = document.querySelector('#saves-list');
-        const index = JSON.parse(localStorage.getItem('excalisaver-index') || '[]');
 
-        index.forEach(id => {
-            if (id == currentSave) return;
-            const save = JSON.parse(localStorage.getItem(id));
+        SAVES.forEach(save => {
+            if (save.id == currentSave) return;
 
             const li = document.createElement('li');
             li.className = 'item';
-            li.dataset.saveId = id;
+            li.dataset.saveId = save.id;
             li.innerHTML = `<div class="item-info">
                 <div class="item-title">
                     ${save.title}
@@ -76,16 +99,16 @@
                 </button>
             </div>`
 
-            li.querySelector('button[name="load-button"]').addEventListener('click', () => loadSave(id));
+            li.querySelector('button[name="load-button"]').addEventListener('click', () => loadSave(save.id));
 
             container.appendChild(li);
         })
     }
 
-    function loadSave(id) {
-        const save = JSON.parse(localStorage.getItem(id));
+    async function loadSave(id) {
+        const save = await getSave(id);
         localStorage.setItem('excalisaver-current', id);
-        localStorage.setItem('excalidraw', JSON.stringify(save.data));
+        localStorage.setItem('excalidraw', save.data);
         window.location.reload();
     }
 

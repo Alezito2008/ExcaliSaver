@@ -2,25 +2,24 @@
 
 ### CREATE SAVE
 
-POST {{base}}/save
+POST {{base}}/saves
 Content-Type: application/json
 
 {
-    "id": "save-2",
-    "title": "Primera save",
+    "id": "save-55555",
+    "title": "Remotito",
     "created": 123,
     "modified": 456,
-    "data": [{"skibidi": "toilet"}]
+    "data": [{"id":"LP_AjLwWnm85d6T53HVBR","type":"text","x":-842.0766160256268,"y":4711.22033016786,"width":189.74964129388843,"height":50,"angle":0,"strokeColor":"#1e1e1e","backgroundColor":"#ff8787","fillStyle":"cross-hatch","strokeWidth":2,"strokeStyle":"solid","roughness":1,"opacity":100,"groupIds":[],"frameId":null,"index":"a1","roundness":null,"seed":674493572,"version":29,"versionNonce":1658701572,"isDeleted":false,"boundElements":null,"updated":1764075417723,"link":null,"locked":false,"text":"Esta es una save\nremota","fontSize":20,"fontFamily":5,"textAlign":"left","verticalAlign":"top","containerId":null,"originalText":"Esta es una save remota","autoResize":false,"lineHeight":1.25}]
 }
 
 ### GET ALL SAVES
-
 GET {{base}}/saves
 
 ### GET SAVE BY ID
-
-GET {{base}}/saves/save-1
+# @prompt saveid
+GET {{base}}/saves/{{saveid}}
 
 ### DELETE SAVE BY ID
-
-DELETE {{base}}/saves/save-2
+# @prompt saveid
+DELETE {{base}}/saves/{{saveid}}
