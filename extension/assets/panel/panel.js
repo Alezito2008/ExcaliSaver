@@ -1,4 +1,4 @@
-const EXCALISAVER_BASE_URL = (typeof globalThis !== 'undefined' && globalThis.EXCALISAVER_URL) || 'http://localhost:3000';
+const EXCALISAVER_BASE_URL = (typeof EXCALISAVER_URL !== 'undefined' && EXCALISAVER_URL) || 'http://localhost:3000';
 
 (async () => {
     
