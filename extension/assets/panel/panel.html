@@ -1,5 +1,5 @@
 <div class="excalidraw">
-    <img src="x.svg" width="20" id="x-button">
+    <img src="x.svg" width="20" id="x-button" alt="Close">
     <div class="excalisaver-title">
         <h1> Excalisaver </h1>
     </div>
@@ -7,24 +7,25 @@
         <h2> Current save </h2>
         <button id="new-button"> + </button>
     </div>
-    <div class="saves-container" style="overflow-y: visible;">
+    <ul class="saves-container" style="overflow-y: visible;">
         <!-- Solo se vé la save actual -->
-        <li class="item" id="current-save">
-            <div class="item-info">
-                <input type="text" class="item-title" value="Untitled" style="all: unset;" id="current-title" />
-                <div class="item-date" id="current-date"> Created: 01-01-2025 - Updated: 20-11-2025 </div>
-            </div>
-            <div class="item-actions">
-                <button class="load-button excalidraw-button primary" id="save-button"> Save </button>
-                <button class="menu-button"> ⋮ </button>
-            </div>
-        </li>
-    </div>
+             <li class="item" id="current-save">
+                 <div class="item-info">
+                     <input type="text" class="item-title" value="Untitled" style="all: unset;" id="current-title" aria-label="Title"/>
+                     <div class="item-date" id="current-date"> Created: 01-01-2025 - Updated: 20-11-2025 </div>
+                 </div>
+                 <div class="item-actions">
+                     <button class="load-button excalidraw-button primary" id="save-button"> Save </button>
+                     <button class="menu-button"> ⋮ </button>
+                 </div>
+             </li>
+         </ul>
+    </ul>
     <div id="saves-view">
         <h2>My saves</h2>
-        <div class="saves-container" id="saves-list">
+        <ul class="saves-container" id="saves-list">
             <!-- Acá se ve la lista de saves -->
-        </div>
+        </ul>
     </div>
 </div>
 <span id="status-indicator">Offline</span>

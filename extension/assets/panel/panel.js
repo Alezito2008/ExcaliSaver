@@ -1,11 +1,12 @@
-const EXCALISAVER_URL = 'http://localhost:3000';
+const EXCALISAVER_BASE_URL = (typeof globalThis !== 'undefined' && globalThis.EXCALISAVER_URL) || 'http://localhost:3000';
 
 (async () => {
+    
 
-    const SAVES = await fetch(`${EXCALISAVER_URL}/saves`).then(data => data.json());
+    const SAVES = await fetch(`${EXCALISAVER_BASE_URL}/saves`).then(data => data.json());
 
     async function postSave(save) {
-        const upload = await fetch(`${EXCALISAVER_URL}/saves`, {
+        const upload = await fetch(`${EXCALISAVER_BASE_URL}/saves`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,7 +18,7 @@ const EXCALISAVER_URL = 'http://localhost:3000';
     }
 
     async function getSave(id) {
-        const save = await fetch(`${EXCALISAVER_URL}/saves/${id}`).then(data => data.json());
+        const save = await fetch(`${EXCALISAVER_BASE_URL}/saves/${id}`).then(data => data.json());
         if (save.status == 404) {
             alert(`Save not found: ${id}`)
             return null;
@@ -120,7 +121,7 @@ const EXCALISAVER_URL = 'http://localhost:3000';
 
     async function deleteSave(id) {
         const currentSave = localStorage.getItem('excalisaver-current');
-        const deleted = await fetch(`${EXCALISAVER_URL}/saves/${id}`, {
+        const deleted = await fetch(`${EXCALISAVER_BASE_URL}/saves/${id}`, {
             method: 'DELETE'
         }).then(data => data.json());
         if (!deleted.ok) return alert('Error al eliminar save: ' + id);

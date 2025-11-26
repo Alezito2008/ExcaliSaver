@@ -1,4 +1,4 @@
-const SCRIPTS = ['inject.js', 'assets/panel/panel.js']
+const SCRIPTS = ['inject.js', 'assets/panel/config.js', 'assets/panel/panel.js']
 
 const INSERT_MODES = Object.freeze({
     append: 'append',

@@ -7,7 +7,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js --watch"
+    "prestart": "npm run gen:extension-config",
+    "start": "cd server && node index.js --watch",
+    "gen:extension-config": "node scripts/generate-config.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.4.6",
